@@ -1,0 +1,22 @@
+import pandas as pd
+
+# Sample movie dataset with ratings
+movies = pd.DataFrame({
+    'movie_id': [1, 2, 3, 4, 5, 6],
+    'title': ['Inception', 'Titanic', 'The Matrix', 'Interstellar', 'The Notebook', 'Avatar'],
+    'genre': ['Sci-Fi', 'Romance', 'Sci-Fi', 'Sci-Fi', 'Romance', 'Sci-Fi'],
+    'rating': [9.0, 8.5, 8.7, 8.6, 8.0, 7.9]
+})
+
+# Ask user for their favorite genre
+print("Available genres:", movies['genre'].unique())
+user_favorite_genre = input("Enter your favorite genre: ").strip()
+
+# Filter and sort by rating
+if user_favorite_genre not in movies['genre'].values:
+    print(f"Sorry, no recommendations found for the genre '{user_favorite_genre}'.")
+else:
+    recommended = movies[movies['genre'] == user_favorite_genre].sort_values(by='rating', ascending=False)
+    print(f"\nTop-rated {user_favorite_genre} movies for you:")
+    for _, row in recommended.iterrows():
+        print(f"- {row['title']} (Rating: {row['rating']})")
